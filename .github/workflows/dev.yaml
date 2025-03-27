@@ -3,7 +3,7 @@ on:
   push:
     branches: 
      -master
-  workflow_dispatch:
+  #workflow_dispatch:
 
 jobs:
   build-and-run:
@@ -21,7 +21,8 @@ jobs:
 
    - name: build docker image 
      run: |
-         docker build -t attandence .
+         docker build -t attandence:latest .
+          
 
    - name: run docker image 
      run: | 
