@@ -1,1 +1,28 @@
+name: dev_deploy
+on:
+  push:
+    branches: 
+     -master
+  workflow_dispatch:
 
+jobs:
+  build-and-run:
+  runs-on: ubuntu:latest
+
+
+  steps:
+  -name: checkout repository
+   uses: action/checkout@v4
+
+
+  -name: set-up docker
+   uses: docker/setup-buildx-actions@v2 
+
+
+  -name: build docker image 
+   run: |
+         docker build -t attandence .
+
+  -name: run docker image 
+   run: | 
+      docker run -d -p 5000:5000 attendance:latest
