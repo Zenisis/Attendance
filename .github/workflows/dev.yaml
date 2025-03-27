@@ -2,7 +2,7 @@ name: dev_deploy
 on:
   push:
     branches: 
-     -master
+     - master
   #workflow_dispatch:
 
 jobs:
@@ -26,4 +26,4 @@ jobs:
 
    - name: run docker image 
      run: | 
-      docker run -d -p 5000:5000 attendance:latest
+      docker images
