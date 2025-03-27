@@ -24,6 +24,10 @@ jobs:
          docker build -t attandence:latest .
           
 
-   - name: run docker image 
+   - name: show  docker image 
      run: | 
       docker images
+
+   - name: run docker image
+     run: |
+       docker run -d -p 5000:5000 attandence:latest   
