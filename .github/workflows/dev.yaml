@@ -16,7 +16,7 @@ jobs:
 
 
    - name: set-up docker
-     uses: docker/setup-buildx-actions@v2 
+     uses: docker/setup-buildx-action@v2 
 
 
    - name: build docker image 
