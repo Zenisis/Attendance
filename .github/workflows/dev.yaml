@@ -11,18 +11,18 @@ jobs:
 
 
   steps:
-  -name: checkout repository
-   uses: actions/checkout@v4
+  - name: checkout repository
+    uses: actions/checkout@v4
 
 
-  -name: set-up docker
-   uses: docker/setup-buildx-actions@v2 
+  - name: set-up docker
+    uses: docker/setup-buildx-actions@v2 
 
 
-  -name: build docker image 
-   run: |
+  - name: build docker image 
+    run: |
          docker build -t attandence .
 
-  -name: run docker image 
-   run: | 
+  - name: run docker image 
+    run: | 
       docker run -d -p 5000:5000 attendance:latest
