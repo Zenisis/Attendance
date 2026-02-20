@@ -5,7 +5,7 @@ resource "aws_security_group" "kartik_sg" {
 
   dynamic "ingress" {
     # for_each = [0, 22, 443, 80, 8080, 5000, 1337, 8000, 8001, 8005, 8004, -1]
-    for_each = [80,5000]
+    for_each = [80,3000,8000]
     content {
       from_port   = 0
       to_port     = 0

@@ -26,10 +26,15 @@ resource "aws_ecs_service" "red" {
   load_balancer {
     target_group_arn = aws_lb_target_group.red-target.arn
     container_name   = "red-target"
-    container_port   = 5000
+    container_port   = 3000
 
   }
-  depends_on = [aws_lb_listener.lb-listener]
+    load_balancer {
+    target_group_arn = aws_lb_target_group.backend.arn
+    container_name   = "backend"
+    container_port   = 8000
+  }
+  depends_on = [aws_lb_listener.http]
 }
 
 
@@ -46,18 +51,35 @@ resource "aws_ecs_task_definition" "red" {
   container_definitions = jsonencode([
     {
       name      = "red-target"
-      image = "${data.aws_ecr_repository.attendance.repository_url}@${data.aws_ecr_image.latest.image_digest}"
+      image =  "249746593559.dkr.ecr.ap-south-1.amazonaws.com/devops-assignment-frontend:1.0"
+      # image = "${data.aws_ecr_repository.devops-assignment-frontend.repository_url}@${data.aws_ecr_image.latest.image_digest}"
 
-      cpu       = var.cpu
-      memory    = var.memory
+      cpu       = 512
+      memory    = 1024
       essential = true
       portMappings = [{
-        containerPort = 5000
+        containerPort = 3000
+        
+        protocol      = "tcp"
+      }]
+    },
+    {
+      name      = "backend"
+      image =  "249746593559.dkr.ecr.ap-south-1.amazonaws.com/devops-assignment-backend"
+      # image = "${data.aws_ecr_repository.devops-assignment-frontend.repository_url}@${data.aws_ecr_image.latest.image_digest}"
+
+      cpu       = 512
+      memory    = 1024
+      essential = true
+      portMappings = [{
+        containerPort = 8000
         
         protocol      = "tcp"
       }]
     }
+    
   ])
+  
 
 
 }
